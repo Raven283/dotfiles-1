@@ -1,0 +1,25 @@
+[[layers]]
+  name = 'checkers#syntax-checking'
+
+[[layers]]
+  name = 'lang#toml'
+
+[[layers]]
+  name = "git"
+  
+[[layers]]
+  name = "github"
+
+[[layers]]
+  name = 'lang#html'
+
+[[layers]]
+  name = 'lang#javascript'
+  auto_fix = true
+  enable_flow_syntax = true
+
+[[layers]]
+  name = 'lang#json'
+
+[[layers]]
+  name = 'lang#markdown'

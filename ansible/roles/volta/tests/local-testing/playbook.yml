@@ -1,0 +1,5 @@
+---
+- hosts: local
+
+  roles:
+    - raven283.volta

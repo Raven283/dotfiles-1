@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+
+  vars:
+    homebrew_clear_cache: true
+
+    volta_installed_packages:
+      - node
+      - npm
+
+  roles:
+    - geerlingguy.homebrew
+    - raven283.volta

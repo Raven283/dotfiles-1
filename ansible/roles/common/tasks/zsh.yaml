@@ -1,0 +1,63 @@
+---
+- name: Establish home directory.
+  set_fact:
+    zsh_user_home_dir: "{{ (ansible_system == 'Darwin') | ternary('Users', 'home') }}"
+
+- name: Ensure zsh is installed.
+  block:
+    - name: Install zsh for Linux.
+      package:
+        name: "zsh"
+        state: present
+      when: ansible_system == "Linux" and install_zsh
+
+    - name: Install zsh for macOS.
+      homebrew:
+        name: "zsh"
+        state: present
+      when: ansible_system == "Darwin" and install_zsh
+
+- name: Get zsh installed path.
+  command: "which zsh"
+  register: zsh_installed_path
+  changed_when: false
+
+- name: Set user shell to zsh.
+  user:
+    name: "{{ zsh_user.name }}"
+    shell: "{{ zsh_installed_path.stdout }}"
+
+- name: Create ~/.zshrc.d directory
+  file:
+    path: ~/.zshrc.d
+    state: directory
+
+- name: Ensure all files in ~/.zshrc.d get sourced
+  lineinfile:
+    path: ~/.zshrc
+    line: for n in `ls ~/.zshrc.d/*.zsh`; do source $n; done;
+
+- name: Check for Oh My ZSH installation
+  stat:
+    path: ~/.oh-my-zsh
+  register: omz_installed
+
+- name: Install Oh My ZSH...
+  git:
+    repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+    dest: ~/.oh-my-zsh
+  when: omz_installed.stat.exists == False
+
+- name: Install zsh autosuggestions and zplug
+  homebrew:
+    package:
+      - zsh-autosuggestions
+      - zplug
+    state: latest
+
+- name: Ensure ZSH config for Oh My ZSH and zplug is loaded
+  copy:
+    src: files/zshrc.d/oh-my.zsh
+    dest: ~/.zshrc.d/oh-my.zsh
+
+- name: Ensure aliases 

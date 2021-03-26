@@ -1,0 +1,9 @@
+---
+- name: Update Homebrew inventory.
+  homebrew:
+    update_homebrew: yes
+
+#- include_tasks: locale.yaml
+- include_tasks: zsh.yaml
+#- include_tasks: volta.yaml
+- include_tasks: tmux.yaml

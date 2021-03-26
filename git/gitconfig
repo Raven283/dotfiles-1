@@ -1,0 +1,13 @@
+[user]
+	name = Matjah Sonneveld
+	email = matjah.sonneveld@blueconic.com
+[pull]
+	ff = only
+[core]
+	excludesfile = /Users/matjah/.gitignore_global
+	autocrlf = input
+	ignorecase = true
+[commit]
+	template = /Users/matjah/.stCommitMsg
+[init]
+	defaultBranch = main

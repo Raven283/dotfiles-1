@@ -1,0 +1,31 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ["~"]
+
+- link:
+    # ~/.tmux.conf: tmux.conf
+    # ~/.vim: vim
+    # ~/.vimrc: vimrc
+    ~/.Brewfile: Brewfile
+    ~/.config:
+      glob: true
+      path: config/*
+      relink: true
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore: git/gitignore
+    ~/.gitignore_global: git/gitignore_global
+    ~/.ssh/config: ssh/config
+    ~/.zshrc: zsh/zshrc.zsh
+    ~/.zshrc.d:
+      glob: true
+      path: zsh/zshrc.d/*.zsh
+      relink: true
+- create:
+    - ~/git
+    - ~/projects
+    # - ~/.vim/undo-history
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]

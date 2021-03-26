@@ -1,0 +1,5 @@
+- name: Install exa with homebrew
+  homebrew:
+    name: exa
+    state: present
+  when: ansible_os_family == "Darwin"

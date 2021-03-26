@@ -1,0 +1,45 @@
+---
+- name: Determine Volta ownership variables
+  set_fact:
+    volta_user: "{{ volta_user || default(ansible_user_id) }}"
+    volta_group: "{{ volta_group || default(ansible_user_gid) }}"
+
+- name: Ensure Volta parent directory has correct permissions
+  file:
+    path: "{{ volta_prefix }}"
+    owner: "{{ volta_user }}"
+    state: directory
+  become: true
+  when: "ansible_distribution_version is version('10.13', '>=')"
+
+- name: Ensure Volta is installed
+  homebrew:
+    package:
+      - volta
+    state: latest
+
+- name: Ensure Volta directory exists
+  file:
+    path: "{{ volta_install_path }}"
+    owner: "{{ volta_user }}"
+    group: "{{ volta_group }}"
+    state: directory
+    mode: 0775
+  become: true
+
+- name: Ensure proper permissions and ownership on volta_bin_paths directories
+  file:
+    path: "{{ volta_bin_path }}"
+    state: directory
+    owner: "{{ volta_user }}"
+    group: "{{ volta_group }}"
+    mode: 0755
+  become: true
+
+- block:
+  - name: Force volta setup after installation
+    command: "{{ volta_bin_path }}/volta setup"
+    when: not volta_bin_path.exists
+  include_vars: ""
+  become: "{{ (volta_user != ansible_user_id) | bool }}"
+  become_user: "{{ volta_user }}"

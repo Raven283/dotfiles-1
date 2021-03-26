@@ -1,0 +1,31 @@
+---
+- name: install volta
+  homebrew:
+    package:
+      - volta
+    state: latest
+
+- name: run volta setup
+  become: false
+  shell: volta setup
+  args:
+    executable: /bin/zsh
+
+- name: install node
+  become: false
+  shell: volta install node@14
+
+- name: install npm
+  become: false
+  shell: volta install npm@7
+
+- name: install yarn
+  become: false
+  shell: volta install yarn@1.19.2
+
+- name: install typescript
+  become: false
+  shell: volta install typescript@latest
+
+- debug:
+    msg: ""
