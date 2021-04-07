@@ -9,7 +9,7 @@ zplug "plugins/history-substring-search", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
-zplug "~/.zshrc.d/", from:local
+zplug "$HOME/.zshrc.d/", from:local
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -48,3 +48,5 @@ if command -v starship &> /dev/null; then
 fi
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+eval "$(rbenv init -)"

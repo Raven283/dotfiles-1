@@ -21,7 +21,7 @@ if command -v fd &> /dev/null; then
 fi
 
 # z (autojump)
-if command -v pazi &>/dev/null; then
-  eval "$(pazi init zsh)"
-  alias zf='z --pipe="fzf"'
-fi
+# if command -v pazi &>/dev/null; then
+#   eval "$(pazi init zsh)"
+#   alias zf='z --pipe="fzf"'
+# fi

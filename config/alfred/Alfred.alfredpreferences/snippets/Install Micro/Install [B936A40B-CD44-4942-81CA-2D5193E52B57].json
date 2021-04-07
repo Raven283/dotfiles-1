@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "sudo curl -L https:\/\/getmic.ro | bash\nsudo chmod +x .\/micro\nsudo mv .\/micro \/usr\/local\/bin",
+    "uid" : "B936A40B-CD44-4942-81CA-2D5193E52B57",
+    "name" : "Install",
+    "keyword" : "micro"
+  }
+}
